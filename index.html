@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Agify UI</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./index.css">
+    <script defer src="./ageStorage.js"></script></head>
+    <script defer src="./index.js"></script></head>
+  </head>
+  <body>
+    <div class="flex row center mt-large">
+      <h1 class="title">Agify UI:</h1>
+    </div>
+    <div class="flex row center mb-large">
+      <form id="ageForm">
+        <input id="nameInput" type="text" placeholder="Name" />
+        <button id="searchBtn" type="submit">SEARCH</button>
+      </form>
+    </div>
+    <div class="mt-small mx-large">
+      <div class="separator"></div>
+      <div id="agesContainer" class="mt-small"></div>
+    </div>
+  </body>
+</html>

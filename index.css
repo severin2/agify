@@ -1,0 +1,181 @@
+/*
+- Background Gray (input background and separator): #FAFAFA
+- Light Gray (Sample size and placeholder): #969696
+- Dark Gray (main body color): #3C3C3C
+- Blue (search button and delete 'x'): #03A6C5
+*/
+
+body {
+  color: #3c3c3c;
+  font-family: 'Source Sans Pro', 'Roboto', sans-serif;
+}
+
+/*
+  styles for the text input
+*/
+input[type='text'] {
+  background-color: #fafafa;
+  font-size: 1.1em;
+  border: 0px;
+  width: 200;
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  color: #3c3c3c;
+  padding-left: 15px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+input[type='text']::placeholder {
+  color: #969696;
+}
+
+input[type='text']:focus-visible {
+  outline: none;
+}
+
+/*
+  styles for the search button
+*/
+button {
+  font-size: 1.1em;
+  background-color: #03a6c5;
+  color: white;
+  border: none;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  width: 120px;
+  transition: 0.2s all;
+}
+
+button:hover {
+  background-color: #03a5c5da;
+}
+
+button:active {
+  transform: scale(0.98);
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.5);
+}
+
+/*
+  Styles for the list of age data
+*/
+.age-list {
+  margin: -1em;
+}
+
+.age-list:after{
+  content: '';
+  flex-grow: 100;
+}
+
+.age-item {
+  border: 1px solid #969696;
+  border-radius: 10px;
+  padding: 0.75em;
+  height: 175px;
+  max-height: 175px;
+  width: 175px;
+  max-width: 175px;
+  flex-grow: 1;
+  flex-shrink: 1;
+  margin: 1em;
+}
+
+.age-item-close {
+  font-size: 1.25em;
+  color: #03a6c5;
+  border: none;
+  cursor: pointer;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently */
+}
+
+.age-item-name {
+  font-size: 1.25em;
+  font-weight: 700;
+}
+
+.age-item-age {
+  overflow: hidden;
+  font-size: 6em;
+  font-weight: 1000;
+}
+
+.age-item-count {
+  color: #969696;
+  font-size: 0.8em;
+  font-weight: 900;
+}
+
+/*
+  Helper styles for spacing
+ */
+.title {
+  font-weight: 900;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.mx-large {
+  margin-right: 4em;
+  margin-left: 4em;
+}
+
+.mb-large {
+  margin-bottom: 3em;
+}
+
+.mb-small {
+  margin-bottom: 1em;
+}
+
+.mt-large {
+  margin-top: 3em;
+}
+
+.mt-small {
+  margin-top: 1em;
+}
+
+.separator {
+  border-top: 2px solid #fafafa;
+}
+
+.flex {
+  display: flex;
+}
+
+.row {
+  flex-flow: row wrap;
+}
+
+.col {
+  flex-flow: column;
+}
+
+.center {
+  justify-content: center;
+}
+
+.space-around {
+  justify-content: space-around;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.space-evenly {
+  justify-content: space-between;
+}
