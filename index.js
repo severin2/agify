@@ -6,6 +6,13 @@
  * @property {number} AgeObject.count
  */
 
+const SORT_TYPES = {
+  NAME: 'name',
+  AGE: 'age'
+};
+
+let sortType = SORT_TYPES.NAME;
+
 /**
  * exposes the functions for interacting with the persisted list of age data
  */
@@ -114,12 +121,18 @@ function renderAges(storage) {
     return;
   }
   const content = agesArray
+    .sort((ageA, ageB) => {
+      if (sortType === SORT_TYPES.COUNT) {
+        return ageA.count - ageB.count;
+      } else if (sortType === SORT_TYPES.AGE) {
+        return ageA.age - ageB.age;
+      }
+    })
     .map((item, index) => renderItem(item, index))
     .join('');
   element.innerHTML = `<div class="flex row age-list">${content}</div>`;
 
   // add click listeners for close buttons
-  // TODO how to unbind listeners?
   const closeButtons = document.getElementsByClassName('age-item-close');
   for (let i = 0; i < closeButtons.length; i++) {
     const close = closeButtons.item(i);
@@ -161,13 +174,52 @@ function listenForSearch(btnId, inputId, formId, onSearch) {
   form.addEventListener('submit', handleOnSearch);
 }
 
+function isValidAge(age) {
+  return !!age && !!age.name && !!age.count;
+}
+
+function doesNameExist(storage, name) {
+  const lowerCaseName = name.toLowerCase();
+  const currentAgeData =  storage.loadAges();
+  const dataForName = currentAgeData.find((age) => age.name.toLowerCase() === lowerCaseName);
+  return !!dataForName;
+}
+
+function listenForSortChanges(storage) {
+  const sortSelectElement = document.getElementById('sortSelect');
+  sortSelectElement.addEventListener('change', (event) => {
+    const { value } = event.target;
+    sortType = value;
+    renderAges(storage);
+  });
+}
+
 // on startup
 const storage = createAgeStorage(window.localStorage);
 renderAges(storage);
-
+listenForSortChanges(storage);
 listenForSearch('searchBtn', 'nameInput', 'ageForm', (nameToSearch) => {
-  agifyNameSearch(nameToSearch).then((age) => {
-    storage.addAge(age);
-    renderAges(storage);
-  });
+
+  // Don't search or add duplicates
+  const nameExists = doesNameExist(storage, nameToSearch);
+  if (nameExists) {
+    alert(`Already have data for '${nameToSearch}'`);
+    return;
+  }
+
+  agifyNameSearch(nameToSearch)
+    .then((age) => {
+
+      // don't add entries that have invalid data
+      if (!isValidAge(age)) {
+        alert(`Found no data for '${nameToSearch}'`);
+        return;
+      }
+
+      storage.addAge(age);
+      renderAges(storage);
+    })
+    .catch((error) => {
+      alert(`Encountered an error searching for '${nameToSearch}'`);
+    });
 });
